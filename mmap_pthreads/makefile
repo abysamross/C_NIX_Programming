@@ -1,6 +1,6 @@
 CC = gcc
 LIB = -lpthread
-SOURCES = ${wildcard *c} 
+SOURCES = ${wildcard *.c} 
 OBJS = ${patsubst %.c, %.o, ${SOURCES}}
 EXECS = ${patsubst %.c, %.out, ${SOURCES}}
 
