@@ -15,7 +15,7 @@ all: ${EXECS}
 	${CC} ${LIB} -c $<
 
 clean:
-	-@rm -rf *.o *.out ${EXECS}
+	-@rm -rf *.o *.out
 
 help:
 	-@echo "make: Compiles all files in PWD with pthread lib and creates <filename>.out in PWD"
