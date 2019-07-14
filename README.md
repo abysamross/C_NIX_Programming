@@ -5,10 +5,10 @@
 
 1. [mmap and pthread](mmap_pthreads/mmaptrial.c):
 
-	The objective is to spawn n posix threads and let each of these n threads
+	The objective is to spawn n ```posix``` threads and let each of these n threads
 	```mmap()``` _filesize/n_ sized chunks of a file starting from _chunksize*i_
 	offset in file _(where i=thread num)_.
-	The threads write these mmap-ed chunks to files named _filename.txt.thread_num_
+	The threads write these _mmap-ed_ chunks to files named _filename.txt.thread_num_
 	in ```$PWD```.
 
 2. [aligned mem](aligned_malloc/alignedmalloc.c):
