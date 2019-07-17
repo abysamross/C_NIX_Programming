@@ -66,7 +66,7 @@ void* readFileChunk(void* args) {
 	//by appending threadnum
 	bname = basename(filename);
 	ofilename = malloc(strlen(bname)+5);
-        memset(ofilename, 0, sizeof(ofilename));
+        memset(ofilename, 0, sizeof(strlen(bname)+5));
 	snprintf(ofilename, strlen(bname)+5, "%s.%d", ifilename, tInfo->tnum);
 
 	//create output file
