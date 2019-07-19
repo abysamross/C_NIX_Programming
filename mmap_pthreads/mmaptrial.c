@@ -210,7 +210,6 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-quit:
 	free(filename);
 	return 0;
 }
