@@ -34,7 +34,6 @@ long checkNum(char* arg) {
 void* getAlignedMem(struct Amem* s) {
 
 	int mask;
-	int offset;
 
 	mask = ~(s->alignBytes-1);
 
@@ -49,7 +48,7 @@ void* getAlignedMem(struct Amem* s) {
 }
 
 //free aligned memory
-int freeAlignedMem(struct Amem* s) {
+void freeAlignedMem(struct Amem* s) {
 	free(s->address);
 }
 
@@ -57,11 +56,9 @@ int main(int argc, char** argv) {
 
 	void* address = NULL;
 	void* alignedAdd = NULL;
-	char* endptr = NULL;
 
 	long alignBytes=0;
 	long size=0;
-	int offset;
 
 	struct Amem amem;
 
@@ -83,7 +80,7 @@ int main(int argc, char** argv) {
 		return 1;
 
 	//check if requested alignment is a power of 2 
-	if(alignBytes & alignBytes-1) {
+	if(alignBytes & (alignBytes-1)) {
 		fprintf(stderr, "# bytes for alignment: 0x%lx, is not a power of 2\n", alignBytes);
 		return 1;
 	}

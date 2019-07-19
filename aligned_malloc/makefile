@@ -1,5 +1,6 @@
-CC = gcc
-CFLAGS = 
+CC = cc
+CFLAGS = -Wall -std=c99 
+LIB =
 SOURCES = ${wildcard *.c}
 OBJS = ${patsubst %.c, %.o, ${SOURCES}}
 EXECS = ${patsubst %.o, %.out, ${OBJS}}
@@ -9,7 +10,7 @@ EXECS = ${patsubst %.o, %.out, ${OBJS}}
 all: ${EXECS}
 
 %.out: %.o
-	${CC} $< ${CFLAGS} -o $@
+	${CC} $< ${LIB} -o $@
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $<
