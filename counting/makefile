@@ -1,16 +1,17 @@
 CC = cc
-CFLAGS = -Wall -std=c99 
+FEATURES = -D_XOPEN_SOURCE
+CFLAGS = -Wall -std=c99 ${FEATURES}
 LIB = 
 SOURCES = ${wildcard *.c}
 OBJS = ${patsubst %.c, %.o, ${SOURCES}}
-BINS = ${patsubst %.o, %.out, ${OBJS}}
+BIN = cnt.out
 
 .PHONY: all clean
 
-all: ${BINS}
+all: ${BIN}
 
-%.out: %.o
-	${CC} $< ${LIB} -o $@
+${BIN}: ${OBJS} 
+	${CC} $^ ${LIB} -o $@
 
 
 %.o: %.c

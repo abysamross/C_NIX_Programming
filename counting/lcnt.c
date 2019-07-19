@@ -1,31 +1,27 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdarg.h>
  
-int main(int argc, char* argv[]) {
+int lcount(int argc, ...) {
 
-	FILE* stream = stdin;
 	char ch;
 	int lc = 0;
+	FILE* stream = NULL;
+	va_list alist;
 
-	if (argc == 2) {
-
-		if (access(argv[1], R_OK) == -1) {
-			perror("");
-			fprintf(stderr, "%s:  Error: stream \"%s\" does not exist or insufficient permissions\n", argv[0], argv[1]);
-			return 1;
-		}
-
-		if (!(stream = fopen(argv[1], "r"))) {
-			perror("");
-			fprintf(stderr, "%s:  Error: failed to open stream \"%s\"\n", argv[0], argv[1]);
-			return 1;
-		}
+	if(argc) {
+		va_start(alist, argc);
+		stream = (FILE*) va_arg(alist, int*);
+		va_end(alist);
 	}
+
+	if (!stream)
+		stream = stdin;
 
 	while ((ch = getc(stream)) != EOF)
 		if (ch == '\n')
 			lc++;
 
-	printf("\n%d\n", lc);
+	printf("%d\n", lc);
 	return 0;
 }
