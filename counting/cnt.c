@@ -73,16 +73,15 @@ int main(int argc, char* argv[]) {
 
 	} else { 
 
-		if (cflag) {
+		if (cflag)
 			charcount(0);
-
-			if(lflag)
-				freopen("/dev/tty", "r", stdin);
-		}
-
-		if (lflag)
+		else if (lflag)
 			lcount(0);
-
+		/*
+		 *	if(lflag)
+		 *   	freopen("/dev/tty", "r", stdin);
+		 *}
+		 */
 	}
 
 	return 0;

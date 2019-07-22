@@ -6,6 +6,7 @@ int charcount(int argc, ...) {
 
 	FILE* stream = NULL;
 	int cc = 0;
+	int lc = 0;
 	char ch;
 
 
@@ -19,9 +20,14 @@ int charcount(int argc, ...) {
 	if (!stream)
 		stream = stdin;
 
-	while ((ch = getc(stream)) != EOF)
+	while ((ch = getc(stream)) != EOF) {
 		cc++;
+		if (stream == stdin && ch == '\n')
+			lc++;
+	}
 
 	printf("%d\n", cc);
+	if (stream == stdin)
+		printf("%d\n", lc);
 	return 0;
 }
