@@ -21,13 +21,17 @@ int charcount(int argc, ...) {
 		stream = stdin;
 
 	while ((ch = getc(stream)) != EOF) {
+
 		cc++;
-		if (stream == stdin && ch == '\n')
+
+		if (argc == 0 && ch == '\n')
 			lc++;
 	}
 
 	printf("%d\n", cc);
-	if (stream == stdin)
+
+	if (argc == 0)
 		printf("%d\n", lc);
+
 	return 0;
 }

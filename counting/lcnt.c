@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdarg.h>
  
-int lcount(int argc, ...) {
+int linecount(int argc, ...) {
 
 	char ch;
 	int lc = 0;

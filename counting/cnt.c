@@ -1,18 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
-
-void charcount(int, ...);
-void lcount(int, ...);
-
-void mprint(FILE* fp, char* fmt, ...) {
-	
-	va_list alist;
-
-	va_start(alist, fmt);
-	vfprintf(fp, fmt, alist);
-	va_end(alist);
-}
+#include "mheader.h"
 
 int main(int argc, char* argv[]) {
 
@@ -23,45 +12,49 @@ int main(int argc, char* argv[]) {
 	char* sname = NULL;
 
 	while ((opt = getopt(argc, argv, "-lc")) != -1) {
+
 		switch (opt) {
+
 			case 'c':
+
 				cflag = 1;
 				break;
+
 			case 'l':
+
 				lflag = 1;
 				break;
+
 			case '?':
+
 				mprint(stderr, "Usage: %s -l|-c [<stream name>]\n", argv[0]);
 				goto error;
+
 			default:
+
 				if (sname) {
 					mprint(stderr, "Usage: %s -l|-c [<stream name>]\nInvalid argument argv[%d]: %s\n", argv[0], optind-1, optarg);
 					goto error;
 				}
 				else
 					sname = optarg;
-			
 				break;
 		}
 	}
 
 	if(!lflag && !cflag && optind <= 2) {
+
 		mprint(stderr, "Usage: %s -l|-c [<stream name>]\n", argv[0]);
 		goto error;
 	}
 
 	if (sname) {
-		if (access(sname, R_OK) == -1) {
-			perror("Error: ");
-			mprint(stderr, "\'%s\', file does not exist or insufficient permissions\n", sname);
-			goto error;
-		}
 
-		if (!(fp = fopen(sname, "r"))) {
-			perror("Error: ");
-			mprint(stderr, "\'%s\', failed to open file\n", sname);
+		if (checkAccess(sname))
 			goto error;
-		}
+
+		if (openStream(sname, &fp))
+			goto error;
 
 		if (cflag)
 			charcount(1, fp);
@@ -69,14 +62,18 @@ int main(int argc, char* argv[]) {
 		fseek(fp, 0, SEEK_SET);
 
 		if (lflag)
-			lcount(1, fp);
+			linecount(1, fp);
+
+		if (closeStream(sname, fp))
+			goto error;
 
 	} else { 
 
 		if (cflag)
 			charcount(0);
+
 		else if (lflag)
-			lcount(0);
+			linecount(0);
 		/*
 		 *	if(lflag)
 		 *   	freopen("/dev/tty", "r", stdin);
