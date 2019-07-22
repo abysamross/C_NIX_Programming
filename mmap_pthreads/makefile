@@ -2,9 +2,9 @@ CC = cc
 FEATURES = -D_POSIX_C_SOURCE=200809L
 CFLAGS = -Wall -std=c99 ${FEATURES}
 LIB = -lpthread
-SOURCES = ${wildcard *.c} 
-OBJS = ${patsubst %.c, %.o, ${SOURCES}}
-EXECS = ${patsubst %.c, %.out, ${SOURCES}}
+SOURCES = $(wildcard *.c)
+OBJS = $(patsubst %.c, %.o, ${SOURCES})
+EXECS = $(patsubst %.c, %.out, ${SOURCES})
 
 .PHONY: all clean help
 
