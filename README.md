@@ -25,7 +25,7 @@
 	```getopt()```, ```getopt_long()``` for parsing command line options and their
 	arguments are also explored.
 
-	In the makefile, ```$(filter-out *pattern*, *text*)``` function was used to 
+	In the makefile, `$(filter-out`*`pattern`*,*`text`*`)` function was used to 
 	filter out _pattern_ from _text_ and get a _substring_ of _text_ free from 
 	_pattern_.
 
