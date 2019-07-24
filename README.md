@@ -20,25 +20,26 @@
 
 	This is just a simple illustration of counting [chars](counting/cnt.c) and 
 	[lines](couting/locnt.c) in a stream. The stream can be any file or ```STDIN```. 
+
 	```Variadic``` functions (_functions that take variable # of arguments_) and 
 	```getopt()```, ```getopt_long()``` for parsing command line options and their
 	arguments are also explored.
 
-	In the makefile, ```$(filter-out _pattern_, _text_)``` function was used to 
+	In the makefile, ```$(filter-out *pattern*, *text*)``` function was used to 
 	filter out _pattern_ from _text_ and get a _substring_ of _text_ free from 
 	_pattern_.
 
-	In addition the program in written in a more modular way, probably making it 
-	easier to convert these modules into libraries later on if needed. Such modules 
-	are the *mprint.c* (_the module for printing_), *fops.c* (_the module for buffered file ops_).
+	In addition the program is written in a modular way, probably making it easier 
+	to convert these modules into libraries later on if needed. Such modules 
+	are the **mprint.c** (_the module for printing_), **fops.c** (_the module for buffered file ops_).
 
-	*Usage*:
+	**Usage**:
 
 	```./cnt.out -l|-c [<stream name>]```
 
-	- ```-c``` is for counting chars from _<stream name>_ and ```-l``` is for counting lines.  
-	- You can specify the optional _<stream name>_ anywhere after the executable name.
-	- If _<stream name>_ is not mentioned, input is expected from ```STDIN```.
+	- ```-c``` is for counting chars from <_stream name_> and ```-l``` is for counting lines.  
+	- You can specify the optional <_stream name_> anywhere after the executable name.
+	- If <_stream name_> is not mentioned, input is expected from ```STDIN```.
 	- The ```-l``` and ```-c``` options can be mentioned together as ```-lc``` and they can also 
 	  be seperately mentioned at the same time, but both will use the same stream i.e there can be
 	  only one stream at all times.
