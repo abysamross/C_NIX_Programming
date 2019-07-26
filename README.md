@@ -49,3 +49,17 @@
 	- longoptions ```--cc``` is for counting chars and ```--lc``` is for counting lines.  
 	- The optional streams can be different. Either or both of them can be a file or ```STDIN```,
 	  (```STDIN``` when no stream is specified)
+
+4. [keywords and qualifiers](keywords):
+
+	This ex generates the assembly output of C files in which variables having different 
+	storage classes, qualifiers and linkages have been defined. The aim of this ex is to 
+	figure out the where these variables are assigned memory in the processes' memory layout. 
+	The storage classes *static*, *auto*, *register* and the *volatalile* qualifier is explored. 
+	Look into the makefile to understand the `CFLAGS`  used to generate these output.
+
+	Knowing the meanings of __*assembler directives*__ will help you make sense of the assembly output
+	and in figuring out the location of these variables.
+	``*NOTE:*`` those meanings can be found here: (https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html)
+
+
