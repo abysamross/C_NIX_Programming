@@ -52,14 +52,17 @@
 
 4. [keywords and qualifiers](keywords):
 
-	This ex generates the assembly output of C files in which variables having different 
-	storage classes, qualifiers and linkages have been defined. The aim of this ex is to 
-	figure out the where these variables are assigned memory in the processes' memory layout. 
-	The storage classes *static*, *auto*, *register* and the *volatalile* qualifier is explored. 
+	This exercise generates the assembly output of C files in which variables having different 
+	storage classes, qualifiers and linkages have been defined. The aim of this ex is to figure 
+	out the where these variables are assigned memory in the processes' memory layout.
+	
+	`make` will output the preprocessor output to `STDOUT` in addition to generating assembly output 
+	in `*.s` files.
+
+	The storage classes __*static*__, __*auto*__, __*register*__ and the __*volatalile*__ qualifier is explored. 
 	Look into the makefile to understand the `CFLAGS`  used to generate these output.
 
 	Knowing the meanings of __*assembler directives*__ will help you make sense of the assembly output
 	and in figuring out the location of these variables.
-	``*NOTE:*`` those meanings can be found here: (https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html)
 
-
+	**`NOTE:`** those meanings can be found here: https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html
