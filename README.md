@@ -66,3 +66,16 @@
 	and in figuring out the location of these variables.
 
 	**`NOTE:`** those meanings can be found here: https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html
+
+5. [pthreads](pthreads)
+
+	This excercise illustrates the use of pthread condition variables and
+	pthread mutexes.
+
+	This excercise is a solution to: https://leetcode.com/problems/print-in-order/
+
+	For better understanding of using pthread related functions lookup *`LINUX MAN PAGES`*
+
+	https://linux.die.net/man/
+
+
