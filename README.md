@@ -74,8 +74,6 @@
 
 	This excercise is a solution to: https://leetcode.com/problems/print-in-order/
 
-	For better understanding of using pthread related functions lookup *`LINUX MAN PAGES`*
-
-	https://linux.die.net/man/
+	For better understanding of using pthread related functions lookup **`LINUX MAN PAGES`** https://linux.die.net/man/
 
 
