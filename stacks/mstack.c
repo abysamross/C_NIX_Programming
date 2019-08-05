@@ -13,7 +13,7 @@ static int empty1(stack* st) {
 
 static void* top1(stack* st) {
 
-	if (st->empty(st))
+	if (st->empty1(st))
 		return NULL;
 
 	return st->sp->val; 
@@ -21,7 +21,7 @@ static void* top1(stack* st) {
 
 static void pop1(stack* st) {
 
-	if (st->empty(st))
+	if (st->empty1(st))
 		return;
 
 	if (st->sp == st->bp)
@@ -66,11 +66,11 @@ stack* initStack() {
 	stack* st = malloc(sizeof(stack)); 
 	st->sp = NULL;
 	st->bp = NULL;
-	st->empty = empty1;
-	st->top = top1;
-	st->pop = pop1;
-	st->push = push1;
-	st->size = size1;
+	st->empty1 = empty1;
+	st->top1 = top1;
+	st->pop1 = pop1;
+	st->push1 = push1;
+	st->size1 = size1;
 	st->nsize = 0;
 
 	return st;
@@ -78,8 +78,8 @@ stack* initStack() {
 
 void freeStack(stack* st) {
 
-	while (!st->empty(st))
-		st->pop(st);
+	while (!st->empty1(st))
+		st->pop1(st);
 
 	free(st);
 }

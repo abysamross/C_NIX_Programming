@@ -7,16 +7,28 @@
 #define typeof(T) __typeof__(T)
 #endif
 
-#define push(S, T, D) ({ 						\
+#define push(S, T, D) ({						\
+			typeof(stack*) s  = S;				\
 			typeof(T) a   = D;					\
-			typeof(T)* ap = malloc(sizeof(T)); 	\
-			*ap = a;      						\
-			S->push(S, (void*)ap);})
+			typeof(T)* ap = malloc(sizeof(T));	\
+			*ap = a;							\
+			s->push1(s, (void*)ap);})
 
-#define pop(S) 		S->pop(S)
-#define top(S) 		S->top(S)
-#define size(S)		S->size(S) 
-#define empty(S)	S->empty(S) 
+#define pop(S) ({				\
+		typeof(stack*) s  = S;	\
+		s->pop1(s);})
+
+#define top(S) ({				\
+		typeof(stack*) s  = S;	\
+		s->top1(s);})
+
+#define size(S) ({				\
+		typeof(stack*) s  = S;	\
+		s->size1(s);})
+
+#define empty(S) ({				\
+		typeof(stack*) s  = S;	\
+		s->empty1(s);})
 
 typedef struct stElem {
 
@@ -33,11 +45,11 @@ typedef struct stack {
 	stElem* sp;
 	stElem* bp;
 	int nsize;
-	int (*empty) (struct stack*);
-	void* (*top) (struct stack*);
-	void (*pop) (struct stack*);
-	void (*push) (struct stack*, void*);
-	int (*size) (struct stack*);
+	int (*empty1) (struct stack*);
+	void* (*top1) (struct stack*);
+	void (*pop1) (struct stack*);
+	void (*push1) (struct stack*, void*);
+	int (*size1) (struct stack*);
 
 } stack;
 
