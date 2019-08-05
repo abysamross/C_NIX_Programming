@@ -11,10 +11,10 @@
 			typeof(T) a   = D;					\
 			typeof(T)* ap = malloc(sizeof(T)); 	\
 			*ap = a;      						\
-			S->push1(S, (void*)ap);})
+			S->push(S, (void*)ap);})
 
-#define pop(S) 		S->pop1(S)
-#define top(S) 		S->top1(S)
+#define pop(S) 		S->pop(S)
+#define top(S) 		S->top(S)
 #define size(S)		S->size(S) 
 #define empty(S)	S->empty(S) 
 
@@ -34,9 +34,9 @@ typedef struct stack {
 	stElem* bp;
 	int nsize;
 	int (*empty) (struct stack*);
-	void* (*top1) (struct stack*);
-	void (*pop1) (struct stack*);
-	void (*push1) (struct stack*, void*);
+	void* (*top) (struct stack*);
+	void (*pop) (struct stack*);
+	void (*push) (struct stack*, void*);
 	int (*size) (struct stack*);
 
 } stack;

@@ -3,7 +3,7 @@
 #include <errno.h>
 #include "mstack.h"
 
-static int empty(stack* st) {
+static int empty1(stack* st) {
 
 	if (!st->bp || !st->sp)
 		return 1;
@@ -56,7 +56,7 @@ static void push1(stack* st, void* val) {
 	++st->nsize;
 }
 
-static int size(stack* st) {
+static int size1(stack* st) {
 
 	return st->nsize;
 }
@@ -66,11 +66,11 @@ stack* initStack() {
 	stack* st = malloc(sizeof(stack)); 
 	st->sp = NULL;
 	st->bp = NULL;
-	st->empty = empty;
-	st->top1 = top1;
-	st->pop1 = pop1;
-	st->push1 = push1;
-	st->size = size;
+	st->empty = empty1;
+	st->top = top1;
+	st->pop = pop1;
+	st->push = push1;
+	st->size = size1;
 	st->nsize = 0;
 
 	return st;
@@ -79,7 +79,7 @@ stack* initStack() {
 void freeStack(stack* st) {
 
 	while (!st->empty(st))
-		st->pop1(st);
+		st->pop(st);
 
 	free(st);
 }

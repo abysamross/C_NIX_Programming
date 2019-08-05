@@ -39,6 +39,7 @@ void func1(stack* st) {
 	}
 
 	printf("size: %d\n\n", size(st));
+	freeStack(st);
 	printf("\n");
 }
 
@@ -56,6 +57,8 @@ int main(int argc, char* argv[]) {
 		(sArr+i)->b = i + (float)i/10.0;
 		push(st, struct test, *(sArr + i));
 	}
+
+	free(sArr);
 
 	i = 0;
 	while (!empty(st)) {
