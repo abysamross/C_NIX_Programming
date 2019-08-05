@@ -93,8 +93,8 @@
 		- `data`, to be pushed in the stack 
 
 	`push` macro does type checking of `data` making sure that it of type `type` and then dynamically allocates memory to it 
-	and passes this pointer as  `void*` to the actual `push()` of the stack. `push` just keeps this reference around until `top()`
-	asks for it or `pop()` removes it.
+	and passes this pointer as  `void*` to the actual `push()` of the stack. The stack just keeps this reference and returns it 
+	whenever `top()` asks for it and removes this refernce when `pop()` pops it.
 
 	- `pop(struct stack*)` - a macro that takes a `struct stack` pointer and calls `pop()` of that stack.
 
@@ -107,7 +107,7 @@
 
 		- `empty()` returns 1 if the stack is empty and 0 otherwise.
 
-	- `size(struct stack*) -  a macro that takes a `struct stack` pointer and calls the `size()` of stack.
+	- `size(struct stack*)` -  a macro that takes a `struct stack` pointer and calls the `size()` of stack.
 
 		- returns the number of elements of type `type` in the stack.
 	
@@ -116,3 +116,9 @@
 	All the above mentioned operations except `freeStack(struct stack*)` take **O(1)** time. `freeStack(struct stack*)` takes **O(n)** time.
 
 	All the macros does type checking for the stack pointer passed to it.
+
+	An illustration/example can be found in `stacTrial.c` file.
+
+	**NOTE:** `make` builds only the stack implementation. To try out the example build it using:
+
+	`gcc -Wall -std=c99 mstack.o stacTrial.c` or simply `gcc mtack.o stacTrial.c
