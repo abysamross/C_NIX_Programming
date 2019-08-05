@@ -76,4 +76,43 @@
 
 	For better understanding of using pthread related functions lookup **`LINUX MAN PAGES`** https://linux.die.net/man/
 
+6. [generic stack](stacks)
 
+	This excercise contains a rudimentary generic stack implementation.
+
+	Generic implies that it can hold data of any type, even derived data ones.
+
+	The following are the functions/operations in this data structure:
+
+	- `initStack()` - a function which returns a pointer to a `struct stack`. 
+
+	- `push(struct stack*, type, data)` - a macro which needs
+
+		- `struct stack`, pointer
+		- `type`, of items to be pushed in the stack. Eg. `int`, `int*`, `struct struct_name`, `float(*)[N]` etc.
+		- `data`, to be pushed in the stack 
+
+	`push` macro does type checking of `data` making sure that it of type `type` and then dynamically allocates memory to it 
+	and passes this pointer as  `void*` to the actual `push()` of the stack. `push` just keeps this reference around until `top()`
+	asks for it or `pop()` removes it.
+
+	- `pop(struct stack*)` - a macro that takes a `struct stack` pointer and calls `pop()` of that stack.
+
+	- `top(struct stack*)` - a macro that takes a `struct stack` pointer and calls `top()` of that stack.
+
+		- `top()` returns a `void` pointer containing the address of a location having data of type `type` (as passed in `push()`).
+		- `top()` returns `NULL` if the stack is empty.
+
+	- `empty(struct stack*)` - a macro that takes a `struct stack` pointer and calls `empty()` of that stack.
+
+		- `empty()` returns 1 if the stack is empty and 0 otherwise.
+
+	- `size(struct stack*) -  a macro that takes a `struct stack` pointer and calls the `size()` of stack.
+
+		- returns the number of elements of type `type` in the stack.
+	
+	- `freeStack(struct stack*)` - a function that pops all the elements of the stack and frees up all memory held by the stack.
+
+	All the above mentioned operations except `freeStack(struct stack*)` take **O(1)** time. `freeStack(struct stack*)` takes **O(n)** time.
+
+	All the macros does type checking for the stack pointer passed to it.
