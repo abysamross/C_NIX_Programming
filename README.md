@@ -121,4 +121,4 @@
 
 	**NOTE:** `make` builds only the stack implementation. To try out the example build it using:
 
-	`gcc -Wall -std=c99 mstack.o stacTrial.c` or simply `gcc mtack.o stacTrial.c
+	`gcc -Wall -std=c99 mstack.o stacTrial.c` or simply `gcc mtack.o stacTrial.c`
