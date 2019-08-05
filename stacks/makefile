@@ -1,10 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -std=c99
 LIBS = 
-HEADERS = $(wildcard *.h)
-SOURCES = $(wildcard *.c)
+SOURCES = $(wildcard *stack*.c)
 OBJS = $(patsubst %.c, %.o, ${SOURCES})
-EXECS = stack.out
 
 .PHONY: all clean
 
