@@ -80,7 +80,7 @@
 
 	This excercise contains a rudimentary generic stack implementation.
 
-	Generic implies that it can hold data of any type, even derived data ones.
+	Generic implies that it can hold data of any type, even derived ones.
 
 	The following are the functions/operations in this data structure:
 
@@ -88,7 +88,7 @@
 
 	- `push(struct stack*, type, data)` - a macro which needs
 
-		- `struct stack`, pointer
+		- `struct stack`, pointer (look into [mstack.h](stacks/mstack.h))
 		- `type`, of items to be pushed in the stack. Eg. `int`, `int*`, `struct struct_name`, `float(*)[N]` etc.
 		- `data`, to be pushed in the stack 
 
@@ -119,6 +119,5 @@
 
 	An illustration/example can be found in `stacTrial.c` file.
 
-	**NOTE:** `make` builds only the stack implementation. To try out the example build it using:
-
-	`gcc -Wall -std=c99 mstack.o stacTrial.c` or simply `gcc mtack.o stacTrial.c`
+	**NOTE:** `make` will build the/any example you include in the current directory along with the stack implementation and will leave the 
+	stack obj file (`mstack.o`) for reuse in the same machine.
