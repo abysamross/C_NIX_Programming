@@ -117,7 +117,7 @@
 
 	All the macros does type checking for the stack pointer passed to it.
 
-	An illustration/example can be found in `stacTrial.c` file.
+	An illustration/example can be found in [stacTrial.c](stacks/stacTrial.c) file.
 
 	**NOTE:** `make` will build the/any example you include in the current directory along with the stack implementation and will leave the 
 	stack obj file (`mstack.o`) for reuse in the same machine.
