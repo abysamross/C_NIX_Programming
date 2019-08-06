@@ -7,12 +7,13 @@
 #define typeof(T) __typeof__(T)
 #endif
 
-#define push(S, T, D) ({						\
-			typeof(stack*) s  = S;				\
-			typeof(T) a   = D;					\
-			typeof(T)* ap = malloc(sizeof(T));	\
-			*ap = a;							\
-			s->push1(s, (void*)ap);})
+#define push(S, T, D) do {							\
+				typeof(stack*) s  = S;				\
+				typeof(T) a   = D;					\
+				typeof(T)* ap = malloc(sizeof(T));	\
+				*ap = a;							\
+				s->push1(s, (void*)ap);				\
+			} while (0)
 
 #define pop(S) ({				\
 		typeof(stack*) s  = S;	\
