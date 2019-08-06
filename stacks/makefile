@@ -9,7 +9,7 @@ EXECS = $(patsubst %.c, %.out, ${ESOURCES})
 
 .PHONY: all clean
 
-all: ${EXECS}
+all: ${EXECS} ${OBJS}
 	
 %.out: ${OBJS} %.c
 	${CC} ${CFLAGS} $^ -o $@
