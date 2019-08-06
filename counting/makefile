@@ -15,7 +15,7 @@ all: ${BINS}
 	${CC} $^ ${LIB} -o $@
 
 
-%.o: %.c mheader.h
+${OBJS}: %.o: %.c mheader.h
 	${CC} ${CFLAGS} -c $<
 
 clean:

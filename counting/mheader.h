@@ -9,5 +9,3 @@ int openStream(char*, FILE**);
 int closeStream(char*, FILE*);
 
 #endif //_MYPRINT_H_
-
-
