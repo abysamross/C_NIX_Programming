@@ -1,14 +1,20 @@
 CC = gcc
 CFLAGS = -Wall -std=c99
 LIBS = 
-SOURCES = $(wildcard *stack*.c)
-OBJS = $(patsubst %.c, %.o, ${SOURCES})
+SOURCES = $(wildcard *.c)
+OSOURCES = mstack.c
+ESOURCES = $(filter-out ${OSOURCES}, ${SOURCES})
+OBJS = $(patsubst %.c, %.o, ${OSOURCES})
+EXECS = $(patsubst %.c, %.out, ${ESOURCES})
 
 .PHONY: all clean
 
-all: ${OBJS}
+all: ${EXECS}
+	
+%.out: ${OBJS} %.c
+	${CC} ${CFLAGS} $^ -o $@
 
-%.o: %.c %.h
+${OBJS}: %.o: %.c %.h
 	${CC} ${CFLAGS} -c $<
 
 clean:
