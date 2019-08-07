@@ -52,7 +52,7 @@ static inline int tree_empty_right(tree_root* root) {
 
 static inline int tree_empty(tree_root* root) {
 
-	return (!root || (tree_empty_left(root) && tree_empty_right(root)));
+	return (tree_empty_left(root) && tree_empty_right(root));
 }
 
 static inline void tree_add_left(tree_root* new, tree_root* root) {
@@ -75,7 +75,7 @@ static inline void tree_del(tree_root* root) {
 	root->left = root->right = NULL;
 }
 
-static tree_root* tree_node_succ(tree_root* root) {
+static inline tree_root* tree_node_succ(tree_root* root) {
 
 	root = root->right;
 

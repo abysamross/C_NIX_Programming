@@ -12,7 +12,7 @@ EXECS    = $(patsubst %.c, %.out, ${ESOURCES})
 
 all: ${EXECS} ${OBJS}
 
-%.out: ${OBJS} %.c ${HEADERS} 
+%.out: ${OBJS} %.c
 	${CC} ${CFLAGS} $^ ${LIB} -o $@ 
 
 ${OBJS}: %.o: %.c ${HEADERS}

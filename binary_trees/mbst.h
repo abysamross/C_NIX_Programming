@@ -21,10 +21,15 @@ typedef struct bst {
 
 } bst;
 
+
 #define delete_node(root) do {								\
 			tree_del(root);									\
 			free(tree_node(root, bstNode, treeNode)->val);	\
 			free(tree_node(root, bstNode, treeNode));		\
 		} while (0)
+
+bst* initBST(void);
+void destroyBST(bst*);
+void printInorder(bst*);
 
 #endif //_MBST_H_

@@ -7,10 +7,10 @@ static tree_root* _recDelete(tree_root* root, int key) {
 
 	bstNode* node;
 
-	if (tree_empty(root))
+	if (!root)
 		return root;
 
-	node = tree_node(root, struct bstNode, treeNode);
+	node = tree_node(root, bstNode, treeNode);
 
 	if (node->key > key)
 		tree_add_left(_recDelete(root->left, key), root);
@@ -22,7 +22,6 @@ static tree_root* _recDelete(tree_root* root, int key) {
 
 		tree_root* tmp = NULL;
 		if (tree_empty(root)) {
-
 			delete_node(root);
 			return tmp;
 
@@ -36,7 +35,7 @@ static tree_root* _recDelete(tree_root* root, int key) {
 		} else {
 
 			tmp = tree_node_succ(root);
-			bstNode* succ = tree_node(tmp, struct bstNode, treeNode);
+			bstNode* succ = tree_node(tmp, bstNode, treeNode);
 
 			node->key = succ->key;
 			node->val = succ->val;
@@ -50,17 +49,17 @@ static tree_root* _recDelete(tree_root* root, int key) {
 
 void del1(bst* bt, int key) {
 
-	_recDelete((bt->root).left, key);
+	tree_add(_recDelete((bt->root).left, key), &bt->root);
 }
 
 static tree_root* _recSearch(tree_root* root, int key) {
 
 	bstNode* node;
 
-	if (tree_empty(root))
+	if (!root)
 		return NULL;
 
-	node = tree_node(root, struct bstNode, treeNode);
+	node = tree_node(root, bstNode, treeNode);
 
 	if (node->key > key)
 		return _recSearch(root->left, key);
@@ -75,14 +74,15 @@ static tree_root* _recSearch(tree_root* root, int key) {
 static void* search1(bst* bt, int key) {
 
 	tree_root* root = _recSearch((bt->root).left, key);
-	return !root ? NULL : tree_node(root, struct bstNode, treeNode)->val;
+
+	return !root ? NULL : tree_node(root, bstNode, treeNode)->val;
 }
 
 static tree_root* _recInsert(tree_root* root, int key, void* val) {
 
 	bstNode* node;
 
-	if (tree_empty(root)) {
+	if (!root) {
 
 		bstNode* node = malloc(sizeof(bstNode));
 		node->height = 0;
@@ -94,7 +94,7 @@ static tree_root* _recInsert(tree_root* root, int key, void* val) {
 		return &node->treeNode;
 	} 
 
-	node = tree_node(root, struct bstNode, treeNode);
+	node = tree_node(root, bstNode, treeNode);
 
 	if (node->key > key)
 		tree_add_left(_recInsert(root->left, key, val), root); 
@@ -113,6 +113,25 @@ static void insert1(bst* bt, int key, void* val) {
 	tree_add(_recInsert((bt->root).left, key, val), &bt->root);
 }
 
+void _recInorder(tree_root* root) {
+
+	if (!root)
+		return;
+
+	_recInorder(root->left);
+	printf("%d ", tree_node(root, bstNode, treeNode)->key);
+	_recInorder(root->right);
+}
+
+void printInorder(bst* bt) {
+
+	if(tree_empty(&bt->root))
+		return;
+
+	_recInorder((bt->root).left);
+	printf("\n\n");
+}
+
 bst* initBST() {
 
 	bst* bt  	= malloc(sizeof(bst));
@@ -123,4 +142,15 @@ bst* initBST() {
 	bt->delT	= del1;
 
 	return bt;
+}
+
+void destroyBST(bst* bt) {
+
+	while (!tree_empty(&bt->root)) {
+
+		bstNode* node = tree_node((bt->root).left, bstNode, treeNode);
+		bt->delT(bt, node->key);
+	}
+
+	free(bt);
 }
