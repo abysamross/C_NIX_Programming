@@ -3,6 +3,8 @@
 
 #include "tree.h"
 
+#define max(a, b) ((a) > (b) ? (a) : (b))
+
 typedef struct bstNode {
 
 	int key;

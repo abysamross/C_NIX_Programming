@@ -85,4 +85,20 @@ static inline tree_root* tree_node_succ(tree_root* root) {
 	return root;
 }
 
+static inline tree_root* tree_right_rotate(tree_root* root) {
+
+	tree_root* lt = root->left;
+	root->left = lt->right;
+	lt->right = root;
+	return lt;
+}
+
+static inline tree_root* tree_left_rotate(tree_root* root) {
+
+	tree_root* rt = root->right;
+	root->right = rt->left;
+	rt->left = root;
+	return rt;
+}
+
 #endif //_MTREE_H_

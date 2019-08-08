@@ -3,6 +3,113 @@
 #include "mbst.h"
 #include "tree.h"
 
+void _recInorder(tree_root* root) {
+
+	if (!root)
+		return;
+
+	_recInorder(root->left);
+	printf("%d ", tree_node(root, bstNode, treeNode)->key);
+	_recInorder(root->right);
+}
+
+void printInorder(bst* bt) {
+
+	if(tree_empty(&bt->root))
+		return;
+
+	_recInorder((bt->root).left);
+	printf("\n\n");
+}
+
+static inline int getLeftHeight(tree_root* root) {
+
+	if (tree_empty_left(root))
+		return 0;
+
+	return tree_node_left(root, bstNode, treeNode)->height;
+}
+
+static inline int getRightHeight(tree_root* root) {
+
+	if (tree_empty_right(root))
+		return 0;
+
+	return tree_node_right(root, bstNode, treeNode)->height;
+}
+
+static inline int getHeight(tree_root* root) {
+
+	if (!root)
+		return 0;
+
+	return tree_node(root, bstNode, treeNode)->height;
+}
+
+static inline int getBalance(tree_root* root) {
+
+	return (getLeftHeight(root) - getRightHeight(root));
+}
+
+static inline void updateHeight(tree_root* root) {
+
+	if (!root)
+		return;
+
+	tree_node(root, bstNode, treeNode)->height =
+		1 + max(getLeftHeight(root), getRightHeight(root));
+}
+
+static inline tree_root* updateHAndRef(tree_root* new, tree_root* old) {
+
+	updateHeight(old);
+	updateHeight(new);
+	old = new;
+	return old;
+}
+
+static inline tree_root* leftRotate(tree_root* root) {
+
+	tree_root* new_root = tree_left_rotate(root);
+	return updateHAndRef(new_root, root);
+}
+
+static inline tree_root* rightRotate(tree_root* root) {
+
+	tree_root* new_root = tree_right_rotate(root);
+	return updateHAndRef(new_root, root);
+}
+
+static tree_root* balanceTree(tree_root* root, int key) {
+
+	int balance = getBalance(root);
+
+	if (balance < -1 && 
+			key > tree_node_right(root, bstNode, treeNode)->key) {
+
+		return leftRotate(root);
+
+	} else if (balance < -1 &&
+				key < tree_node_right(root, bstNode, treeNode)->key) {
+
+		root->right = rightRotate(root->right);
+		return leftRotate(root);
+
+	} else if (balance > 1 &&
+				key < tree_node_left(root, bstNode, treeNode)->key) {
+
+		return rightRotate(root);
+
+	} else if (balance > 1 &&
+				key > tree_node_left(root, bstNode, treeNode)->key) {
+
+		root->left = leftRotate(root->left);
+		return rightRotate(root);
+	}
+
+	return root;
+}
+
 static tree_root* _recDelete(tree_root* root, int key) {
 
 	bstNode* node;
@@ -22,13 +129,13 @@ static tree_root* _recDelete(tree_root* root, int key) {
 
 		tree_root* tmp = NULL;
 		if (tree_empty(root)) {
+
 			delete_node(root);
 			return tmp;
 
 		} else if (tree_empty_left(root) || tree_empty_right(root)) {
 
-			tmp = tree_empty_left(root) ? root->right : root->left;
-
+			tmp = tree_empty_left(root) ? root->right : root->left; 
 			delete_node(root);
 			return tmp;
 
@@ -85,9 +192,9 @@ static tree_root* _recInsert(tree_root* root, int key, void* val) {
 	if (!root) {
 
 		bstNode* node = malloc(sizeof(bstNode));
-		node->height = 0;
+		node->height = 1;
 		node->key = key;
-		node->val = !val ? NULL: val;
+		node->val = !val ? NULL : val;
 
 		INIT_TREE_ROOT(&node->treeNode);
 
@@ -102,35 +209,22 @@ static tree_root* _recInsert(tree_root* root, int key, void* val) {
 	else if (node->key < key)
 		tree_add_right(_recInsert(root->right, key, val), root);
 
-	else
-		printf("Key: %d already present in tree!\n", key);
+	else {
 
- 	return root;
+		printf("Key: %d already present in tree!\n", key);
+		return root;
+	}
+
+	updateHeight(root);
+	return balanceTree(root, key);
 }
 
 static void insert1(bst* bt, int key, void* val) {
 
 	tree_add(_recInsert((bt->root).left, key, val), &bt->root);
+	//printInorder(bt);
 }
 
-void _recInorder(tree_root* root) {
-
-	if (!root)
-		return;
-
-	_recInorder(root->left);
-	printf("%d ", tree_node(root, bstNode, treeNode)->key);
-	_recInorder(root->right);
-}
-
-void printInorder(bst* bt) {
-
-	if(tree_empty(&bt->root))
-		return;
-
-	_recInorder((bt->root).left);
-	printf("\n\n");
-}
 
 bst* initBST() {
 

@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 	for (int i = 0; i < N; ++i) {
 
 		struct emp* a = malloc(sizeof(struct emp));
-		a->id = rand();
+		a->id = rand()%20;
 		//a->id = i;
 		a->name = "baker";
 		a->age = rand()%60;
