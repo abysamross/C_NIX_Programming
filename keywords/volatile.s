@@ -20,36 +20,35 @@ globalVolatileZ_512:
 func:
 .LFB0:
 	.cfi_startproc
-	pushl	%ebp
-	.cfi_def_cfa_offset 8
-	.cfi_offset 5, -8
-	movl	%esp, %ebp
-	.cfi_def_cfa_register 5
-	subl	$16, %esp
-	movl	$0, -8(%ebp)
-	movl	$16, -4(%ebp)
-	movl	globalVolatileZ_512, %eax
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -20(%rbp)
+	movl	$0, -8(%rbp)
+	movl	$16, -4(%rbp)
+	movl	globalVolatileZ_512(%rip), %eax
 	addl	$1, %eax
-	movl	%eax, globalVolatileZ_512
-	movl	-4(%ebp), %eax
+	movl	%eax, globalVolatileZ_512(%rip)
+	movl	-4(%rbp), %eax
 	subl	$1, %eax
-	movl	%eax, -4(%ebp)
-	movl	globalVolatileX, %edx
-	movl	globalVolatileY_0, %eax
+	movl	%eax, -4(%rbp)
+	movl	globalVolatileX(%rip), %edx
+	movl	globalVolatileY_0(%rip), %eax
 	addl	%eax, %edx
-	movl	globalVolatileZ_512, %eax
+	movl	globalVolatileZ_512(%rip), %eax
 	addl	%eax, %edx
-	movl	8(%ebp), %eax
+	movl	-20(%rbp), %eax
 	addl	%eax, %edx
-	movl	-12(%ebp), %eax
+	movl	-12(%rbp), %eax
 	addl	%eax, %edx
-	movl	-8(%ebp), %eax
+	movl	-8(%rbp), %eax
 	addl	%eax, %edx
-	movl	-4(%ebp), %eax
+	movl	-4(%rbp), %eax
 	addl	%edx, %eax
-	leave
-	.cfi_restore 5
-	.cfi_def_cfa 4, 4
+	popq	%rbp
+	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE0:
@@ -59,19 +58,18 @@ func:
 main:
 .LFB1:
 	.cfi_startproc
-	pushl	%ebp
-	.cfi_def_cfa_offset 8
-	.cfi_offset 5, -8
-	movl	%esp, %ebp
-	.cfi_def_cfa_register 5
-	subl	$20, %esp
-	movl	$-1, -4(%ebp)
-	movl	-4(%ebp), %eax
-	movl	%eax, (%esp)
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	$-1, -4(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, %edi
 	call	func
 	leave
-	.cfi_restore 5
-	.cfi_def_cfa 4, 4
+	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE1:

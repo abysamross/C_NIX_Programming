@@ -15,33 +15,33 @@ globalStaticZ_256:
 func:
 .LFB0:
 	.cfi_startproc
-	pushl	%ebp
-	.cfi_def_cfa_offset 8
-	.cfi_offset 5, -8
-	movl	%esp, %ebp
-	.cfi_def_cfa_register 5
-	movl	globalStaticZ_256, %eax
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -4(%rbp)
+	movl	globalStaticZ_256(%rip), %eax
 	subl	$1, %eax
-	movl	%eax, globalStaticZ_256
-	movl	localStaticD_32.1376, %eax
+	movl	%eax, globalStaticZ_256(%rip)
+	movl	localStaticD_32.1729(%rip), %eax
 	subl	$1, %eax
-	movl	%eax, localStaticD_32.1376
-	movl	globalStaticX, %edx
-	movl	globalStaticY_0, %eax
+	movl	%eax, localStaticD_32.1729(%rip)
+	movl	globalStaticX(%rip), %edx
+	movl	globalStaticY_0(%rip), %eax
 	addl	%eax, %edx
-	movl	globalStaticZ_256, %eax
+	movl	globalStaticZ_256(%rip), %eax
 	addl	%eax, %edx
-	movl	8(%ebp), %eax
+	movl	-4(%rbp), %eax
 	addl	%eax, %edx
-	movl	localStaticB.1374, %eax
+	movl	localStaticB.1727(%rip), %eax
 	addl	%eax, %edx
-	movl	localStaticC_0.1375, %eax
+	movl	localStaticC_0.1728(%rip), %eax
 	addl	%eax, %edx
-	movl	localStaticD_32.1376, %eax
+	movl	localStaticD_32.1729(%rip), %eax
 	addl	%edx, %eax
-	popl	%ebp
-	.cfi_restore 5
-	.cfi_def_cfa 4, 4
+	popq	%rbp
+	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE0:
@@ -51,32 +51,31 @@ func:
 main:
 .LFB1:
 	.cfi_startproc
-	pushl	%ebp
-	.cfi_def_cfa_offset 8
-	.cfi_offset 5, -8
-	movl	%esp, %ebp
-	.cfi_def_cfa_register 5
-	subl	$20, %esp
-	movl	$-1, -4(%ebp)
-	movl	-4(%ebp), %eax
-	movl	%eax, (%esp)
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	$-1, -4(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, %edi
 	call	func
 	leave
-	.cfi_restore 5
-	.cfi_def_cfa 4, 4
+	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE1:
 	.size	main, .-main
 	.data
 	.align 4
-	.type	localStaticD_32.1376, @object
-	.size	localStaticD_32.1376, 4
-localStaticD_32.1376:
+	.type	localStaticD_32.1729, @object
+	.size	localStaticD_32.1729, 4
+localStaticD_32.1729:
 	.long	32
-	.local	localStaticB.1374
-	.comm	localStaticB.1374,4,4
-	.local	localStaticC_0.1375
-	.comm	localStaticC_0.1375,4,4
+	.local	localStaticB.1727
+	.comm	localStaticB.1727,4,4
+	.local	localStaticC_0.1728
+	.comm	localStaticC_0.1728,4,4
 	.ident	"GCC: (Ubuntu 4.8.5-2ubuntu1~14.04.1) 4.8.5"
 	.section	.note.GNU-stack,"",@progbits
