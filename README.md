@@ -135,12 +135,12 @@
 	The core idea behind this frame work is just a couple of macros.
 
 	- `mu_assert(message, test)` 	: which returns `message` if `test` evaluates to 0.
-	- `mu_run_test_ret(test)`	 	: which runs `test()`, increments count of tests run and returns the `message`, if any, returned by it.
+	- `mu_run_test_ret(test)`	 	: which runs `test()`, increments count of tests run and returns `message`, if any, returned by it.
 	
 	The following are my additions:
 
-	- `mu_assert_name(message, test): which prints `message` and the `__func__` from which it was invoked, if `test` evaluates to 0.
-	- `mu_run_test(test)`	 		: which runs `test()`, increments count of tests run and increments count of failed tests if it fails.
+	- `mu_assert_name(message, test)`	: which prints `message` and the `__func__` from which it was invoked, if `test` evaluates to 0.
+	- `mu_run_test(test)`	 			: which runs `test()`, increments count of tests run and also the count of failed tests if it fails.
 
 	The `makefile` builds the test binary, `test.out`, for you.
 
