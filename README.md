@@ -121,3 +121,29 @@
 
 	**NOTE:** `make` will build the/any example you include in the current directory along with the stack implementation and will leave the 
 	stack obj file (`mstack.o`) for reuse in the same machine.
+
+7. [unit testing C code](unit_testing_illustration)
+
+	This is an illustration of unit testing in C.
+   
+	This uses MinUnit, a minimal unit testing framework for C, found here: http://www.jera.com/techinfo/jtns/jtn002.html
+
+	And was brought to my notice by: https://www.youtube.com/watch?v=vEICc0zygWQ
+
+	Please checkout the site and small video for easily understanding this.
+
+	The core idea behind this frame work is just a couple of macros.
+
+	- `mu_assert(message, test)` 	: which returns `message` if `test` evaluates to 0.
+	- `mu_run_test_ret(test)`	 	: which runs `test()`, increments count of tests run and returns the `message`, if any, returned by it.
+	
+	The following are my additions:
+
+	- `mu_assert_name(message, test): which prints `message` and the `__func__` from which it was invoked, if `test` evaluates to 0.
+	- `mu_run_test(test)`	 		: which runs `test()`, increments count of tests run and increments count of failed tests if it fails.
+
+	The `makefile` builds the test binary, `test.out`, for you.
+
+	Make sure to name your test files with `main()` as `test_<feature_to_be_tested>.c`.
+
+	Where `feature_to_be_tested.c` is the file containing containing the implementation of the feature/functionality that you want test.
