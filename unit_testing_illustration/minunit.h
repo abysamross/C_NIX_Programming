@@ -11,32 +11,32 @@
 #ifndef _MINUNIT_H_
 #define _MINUNIT_H_
 
-#define mu_assert(message, test)    do {			\
-					if (!(test))		\
-					    return message;	\
-				    } while (0)
+#define mu_assert(message, test)    do {                    \
+                                        if (!(test))        \
+                                            return message; \
+                                    } while (0)
 
-#define mu_assert_name(message, test)	do {				    \
-					    if (!(test)) {		    \
-						printf("\n%s: FAILED! %s\n",\
-							__func__, message); \
-						return message;		    \
-					    }				    \
-					} while (0)
+#define mu_assert_name(message, test)   do {                                 \
+                                            if (!(test)) {                   \
+                                                printf("\n%s: FAILED! %s\n", \
+                                                        __func__, message);  \
+                                                return message;              \
+                                            }                                \
+                                        } while (0)
 
-#define mu_run_test_ret(test)	do {				\
-				    char* message = test();	\
-				    ++tests_run;		\
-				    if (message)		\
-					return message		\
-			    } while (0)
+#define mu_run_test_ret(test)   do {                        \
+                                    char* message = test(); \
+                                    ++tests_run;            \
+                                    if (message)            \
+                                        return message      \
+                                } while (0)
 
-#define mu_run_test(test)   do {				\
-				char* message = test();		\
-				++tests_run;			\
-				if (message)			\
-				    ++tests_failed;		\
-			    } while (0)
+#define mu_run_test(test)   do {                        \
+                                char* message = test(); \
+                                ++tests_run;            \
+                                if (message)            \
+                                    ++tests_failed;     \
+                            } while (0)
 
 extern int tests_run;
 extern int tests_failed;
