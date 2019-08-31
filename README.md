@@ -146,4 +146,4 @@
 
 	Make sure to name your test files with `main()` as `test_<feature_to_be_tested>.c`.
 
-	Where `feature_to_be_tested.c` is the file containing containing the implementation of the feature/functionality that you want test.
+	Where `<feature_to_be_tested>.c` is the file containing containing the implementation of the feature/functionality that you want test.
