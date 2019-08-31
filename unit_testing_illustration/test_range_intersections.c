@@ -70,7 +70,7 @@ static char* test_border_3() {
 	return 0;
 }
 
-static char* test_border_5() {
+static char* test_border_4() {
 
 	int range1[2] = {23, 24};
 	int range2[2] = {21, 22};
@@ -103,7 +103,7 @@ void run_all_tests() {
 	mu_run_test(test_border_1);
 	mu_run_test(test_border_2);
 	mu_run_test(test_border_3);
-	mu_run_test(test_border_5);
+	mu_run_test(test_border_4);
 }
 
 int main(int argc, char* argv[]) {
