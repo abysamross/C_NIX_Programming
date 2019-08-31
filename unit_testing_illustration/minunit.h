@@ -13,14 +13,14 @@
 
 #define mu_assert(message, test)	do {						\
 										if (!(test))			\
-											return message; 	\
+											return message;		\
 									} while (0)
 
 #define mu_assert_name(message, test)	do {								\
 											if (!(test)) {					\
 												printf("\n%s: FAILED! %s\n",\
 														__func__, message);	\
-												return message; 			\
+												return message;				\
 											}								\
 										} while (0)
 
