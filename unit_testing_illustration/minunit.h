@@ -13,15 +13,15 @@
 
 #define mu_assert(message, test)    do {                    \
                                         if (!(test))        \
-                                            return message; \
+                                            return "FAILED";\
                                     } while (0)
 
-#define mu_assert_name(message, test)   do {                                 \
-                                            if (!(test)) {                   \
-                                                printf("\n%s: FAILED! %s\n", \
-                                                        __func__, message);  \
-                                                return message;              \
-                                            }                                \
+#define mu_assert_name(message, test)   do {                                            \
+                                            if (!(test)) {                              \
+                                                printf("\n%s: FAILED! Expected: %s\n",  \
+                                                        __func__, message);             \
+                                                return "FAILED";                        \
+                                            }                                           \
                                         } while (0)
 
 #define mu_run_test_ret(test)   do {                        \

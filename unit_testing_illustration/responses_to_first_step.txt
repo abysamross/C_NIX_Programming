@@ -1,0 +1,305 @@
+There are two action items for you. The first is to share your thoughts for the following questions:
+
+1.  In your career, where do you wish to be 2 years from now?
+
+        (a) I would like to be more involved in the Linux Kernel, modifiying/adding to it, 
+        not necessarily upstreaming, for the project that earns me my bread.
+
+        (b) Learn more about embedded systems and try my hand on related assignments as much as I can.
+
+        (c) Certainly not in a managerial/management only role.
+
+2.  What would be the most exciting assignment that you could work on if you were to start at Sibros? You can hypothesize one and we want to understand 
+    your liking of work type.
+
+        Making an in-Kernel module/add-on that would aid in the fast, optimized updation of all the ECUs.
+
+        This module can probably run a kernel thread that would look/listen for updates and once available 
+        will pick it up directly from the network buffer/queue and pass it onto another module that would 
+        do a quick comparison against the last update state of each ECUs, probably using something like 
+        bloom-filters or similar, and send out the update diffs as directed unicast messges/packets to the 
+        shortlisted units.
+    
+3.  Looking at one of the following article, what is your most agreed upon and disagreed upon standard? What would you add to this article?
+    https://gitlab.com/sibros_public/public/wikis/c/coding_standards
+
+        This was a tough one!
+
+        Q. What is your most agreed upon standard?
+
+        A:
+            Policy wise the one section that hit me the most was the - `Sibros guidelines for being a good, responsible engineer.'
+            In the light of my past job experiences listing out the points which I agree with the most, in the order I deem them to be important:
+
+            (a) Knowledge is not worth anything until transferred
+            (b) Write code for someone else to take over
+            (c) Take your time, and do things right
+            (d) Get to the root cause
+            (e) Any WARs are going to come back to haunt you
+
+        Q: What is your most disagreed upon standard?
+
+        A:
+            The standard(s) about which I have some reservations is/are:
+            The snake case + Double underscore + Naming Convention restrictions combination.
+            (Inspite of `Balance the length of the names'.)
+
+            I doubt this would lead to really long lines of code, even for trivial purposes, rendering it difficult to read?
+
+        Q: What would you add to this article?
+
+        A:
+            Policy wise, I would like to see some additions on strictly:
+
+                (a) respecting fellow engineers even in disagreement
+                (b) being open and accessible to all levels of stake holders
+                (c) being open and to the point while conveying appreciation, comments, criticisms
+                (d) adhering to and fostering techincal competencies in workplace conversations/discussions
+
+            Article content/layout wise, the following are some of the changes I felt would make it look better:
+
+                (a) Collapsing the table of contents at the main topic level and the body of the page at the level of sub topics.
+                    I feel this would make it look more tidy and easy to get a quick overview with much less to scroll down,
+                    and easy to read with just the currently expanded sub topic vying to catch your eyes' attention.
+
+                (b) `Naming Convention', `Avoid Comments', `Expressive Code' - I feel moving them to `Fundamentals' gives more continuity while reading. 
+    
+                (c) Formally numbering/indexing these standards would make it easier to refer to later.
+    
+                (d) Strictly vetting the standards itself for DRY violations.
+
+                (e) Please don't consider this one as nit picking, there is a typo on the very first word of `Bad Comments' :)
+
+The second action item is to answer the following coding questions:
+
+// Question 1:
+// Explain the parameter types for the following function (for example, explain why const void *)
+void* memcpy( void* dest, const void* src, size_t count );
+
+*****************************************************************
+// Response to Question 1:                                      *
+*****************************************************************
+
+(1) memcpy() copies count number of bytes from address in src to address in dest and returns dest.
+
+(2) src/dest are of type generic pointer/void*
+    (a) as these can point to data of any type,
+    (b) as pointer of any type can be converted to type void* without - loss of information and an explicit cast,
+    (c) as these will be assigned to type char* (again without explicit cast) to do byte by byte copying in the function definition,
+    (d) and if memcpy() is implemented using asm instructions it just needs a memory location containing the relevant data
+        (i.e the pointer variables containing the src and dest addresses, thereby making (c) above irrelevant and (a), (b) the reasons)
+
+(3) There is no need for the function to modify/write to the memory src points to.
+    Hence it is declared as constant pointer.
+
+******************************************************************
+// End of Response to Question 1                                 *
+******************************************************************
+
+// Question 2:
+// Complete the following code using memmove() function
+// Example: string = “one two three” and erase = “two “
+// Then after returning from the function, string should be equal to “one three”
+void erase_substring(char* string, const char* erase)
+
+
+******************************************************************
+// Reponse to Question 2 (a):                                    *
+******************************************************************
+
+void erase_substring(char* string, const char* erase) {
+
+    if ((NULL != string) && (NULL != erase) && (0 != strlen(string)) && (0 != strlen(erase))) {
+
+        char* suffix = NULL;
+
+        while (NULL != (suffix = strstr(string, erase))) {
+
+            size_t string_length = strlen(string);
+            size_t erase_length  = strlen(erase);
+            size_t suffix_length = strlen(suffix);
+            size_t leftover_tail_length  = suffix_length - erase_length;
+            size_t new_length = string_length - erase_length;
+                
+            memmove(suffix, suffix + erase_length, leftover_tail_length);
+            memset(string + new_length, 0, erase_length);
+        }
+    }
+}
+
+******************************************************************
+// End of reponse to Question 2 (a)                              *
+******************************************************************
+
+// Given an assert function ‘aseert( )`, write the tests for erase_substring()
+void test_erase_substring(void) {
+}
+
+******************************************************************
+// Response to Question 2 (b)                                    *
+******************************************************************
+
+I would've used the very minimalistic MinUnit unit testing framework, as found here 
+ http://www.jera.com/techinfo/jtns/jtn002.html, to create the unit tests as asked 
+using just an assert() function.
+
+Not keeping a count of total tests run, passed and failed here. Though such a
+report would be trivial to implement and display.
+
+test_erase_substring() will invoke each of these tests and please find it's
+definition at line:249
+
+static void test_basic_positive(void) {
+
+    char string[]   = "aby sam ross";
+    char erase[]    = "sam ";
+    char result[]   = "aby ross";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+static void test_basic_negative(void) {
+
+    char string[]   = "aby sam ross";
+    char erase[]    = "diana";
+    char result[]   = "aby sam ross";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+static void test_multiple_occurences(void) {
+
+    char string[]   = "erase This is erase a random erase text containing erase erase keywords to be erase erased erase erase ";
+    char erase[]    = "erase ";
+    char result[]   = "This is a random text containing keywords to be erased ";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+static void test_empty_string(void) {
+
+    char string[]   = "";
+    char erase[]    = "some text";
+    char result[]   = {'\0'};
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+static void test_empty_erase(void) {
+
+    char string[]   = "some text";
+    char erase[]    = "";
+    char result[]   = "some text";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+static void test_empty_string_erase(void) {
+
+    char string[]   = "";
+    char erase[]    = "";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, "")) && (0 == strcmp(erase, "")));
+}
+
+static void test_same_text(void) {
+
+    char string[]   = "same text";
+    char erase[]    = "same text";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, "")));
+}
+
+static void test_null_string(void) {
+
+    char* string    = NULL;
+    char erase[]    = "some text";
+
+    erase_substring(string, erase);
+    assert((NULL == string) && (0 == strcmp(erase, "some text")));
+}
+
+static void test_null_erase(void) {
+
+    char string[]   = "some text";
+    char* erase     = NULL;
+    char result[]   = "some text";
+
+    erase_substring(string, erase);
+    assert((NULL == erase) && (0 == strcmp(string, result)));
+}
+
+static void test_space_erase(void) {
+
+    char string[]   = "   reading betw   een the w o r d s  ! ";
+    char erase[]    = " ";
+    char result[]   = "readingbetweenthewords!";
+
+    erase_substring(string, erase);
+    assert((0 == strcmp(string, result)));
+}
+
+void test_erase_substring(void) {
+
+    test_basic_positive();
+    test_basic_negative();
+    test_multiple_occurences();
+    test_empty_string();
+    test_empty_erase();
+    test_empty_string_erase();
+    test_same_text();
+    test_null_string();
+    test_null_erase();
+    test_space_erase();
+}
+
+******************************************************************
+// End of response to Question 2 (b)                             *
+******************************************************************
+
+// Question 3:
+typedef struct {
+
+  unsigned quotient;
+  unsigned remainder;
+
+} divider_s;
+
+// Implement (with all possible error checks)
+void divide(divider_s *answer, unsigned number, unsigned divide_by);
+
+******************************************************************
+// Response to Question 3                                        *
+******************************************************************
+
+Checking here only for a possible divide by 0 and NULL pointer dereference.
+
+Since the parameters and struct members are all unsigned int, there is no 
+need to check for overflow that could happen if INT_MIN was divided by -1.
+
+void divide(divider_s *answer, unsigned number, unsigned divide_by) {
+
+    if (NULL != answer) {
+
+        if (0 != divide_by) {
+
+            answer->quotient  = number/divide_by;
+            answer->remainder = number%divide_by;
+
+        } else {
+
+            /* undefined divide_by 0 */
+        }
+    }
+}
+
+******************************************************************
+// End of response to Question 3                                 *
+******************************************************************

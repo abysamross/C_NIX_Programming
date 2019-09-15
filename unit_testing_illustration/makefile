@@ -1,25 +1,32 @@
 CC 			= gcc
 CFLAGS		= -std=c99 -Wall -Werror
 LIBS		=
-HEADERS 	= $(wildcard *.h)
-SOURCES 	= $(wildcard *.c)
-TESTSOURCES = $(filter $(wildcard test_*.c), ${SOURCES})
+TESTHEADER 	= minunit.h
+SOURCES 	= $(filter-out $(wildcard test_*.c), $(wildcard *.c))
+TESTSOURCES = $(patsubst %.c, test_%.c, ${SOURCES})
 TESTSO		= $(patsubst %.c, %.o, ${TESTSOURCES})
 OBJS 		= $(patsubst %.c, %.o, $(filter-out ${TESTSOURCES}, ${SOURCES}))
-TEST		= test.out
+TESTS		= $(patsubst %.o, %.out, ${TESTSO})
 
 .PHONY: all clean
 
-all: ${TEST}
+all: ${TESTS}
 
-%.out: ${TESTSO} ${OBJS}
+test_%.out: %.o test_%.o
 	${CC} $^ -o $@ ${LIBS}
 
-%.o: %.c ${HEADERS}
+test_%.o: test_%.c ${TESTHEADER}
+	${CC} ${CFLAGS} -c $<
+
+${OBJS}: %.o: %.c %.h
 	${CC} ${CFLAGS} -c $<
 
 clean:
 	-@rm -rf *.o *.out
 
-help:
-	-@echo ${TESTSOURCES} ${TESTSO} ${OBJS}
+verbose:
+	-@echo "TEST SOURCES: "${TESTSOURCES}
+	-@echo "TEST OBJS: "${TESTSO}
+	-@echo "TESTS: "${TESTS}
+	-@echo "SOURCES: "${SOURCES}
+	-@echo "OBJS: "${OBJS}
