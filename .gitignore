@@ -5,3 +5,6 @@
 #executables
 *.out
 *.exe
+
+#backups
+*.bkp
